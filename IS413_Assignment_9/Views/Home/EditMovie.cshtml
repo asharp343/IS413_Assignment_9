@@ -1,0 +1,70 @@
+﻿@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@{
+    ViewData["Title"] = "Edit Movie";
+    ViewData["Heading"] = "Edit Movie";
+    ViewBag.Ratings = new List<string> { "G", "PG", "PG-13", "R" };
+}
+
+@model Movie
+
+<form asp-action="EditMovie" method="post">
+    <input asp-for="MovieId" value="@Model.MovieId" hidden /><br />
+
+    <label asp-for="Category">Category:</label>
+    <input asp-for="Category" placeholder="@Model.Category" /><br />
+
+    <label asp-for="Title">Title:</label>
+    <input asp-for="Title" placeholder="@Model.Title" /><br />
+
+    <label asp-for="Year">Year:</label>
+    <input asp-for="Year" placeholder="@Model.Year" /><br />
+
+    <label asp-for="Director">Director:</label>
+    <input asp-for="Director" placeholder="@Model.Director" /><br />
+
+    <label asp-for="Rating">Rating:</label>
+    <select asp-for="Rating">
+        <option value="@Model.Rating">@Model.Rating</option>
+        @foreach (string rating in ViewBag.Ratings)
+        {
+            if (Model.Rating != rating)
+            {
+                <option value="@rating">@rating</option>
+            }
+        }
+    </select><br />
+
+    <label asp-for="Edited">Edited:</label>
+    <select asp-for="Edited">
+        @if (Model.Edited == true)
+        {
+            <option value="@Model.Edited">Yes</option>
+            <option value="false">No</option>
+        }
+        else if (Model.Edited == false)
+        {
+            <option value="@Model.Edited">No</option>
+            <option value="true">Yes</option>
+        }
+        else
+        {
+            <option value="">Select One</option>
+            <option value="True">Yes</option>
+            <option value="False">No</option>
+        }
+
+    </select><br />
+
+    <label asp-for="LentTo">Lent To:</label>
+    <input asp-for="LentTo" placeholder="@Model.LentTo" /><br />
+
+    <label asp-for="Note">Note:</label>
+    <input asp-for="Note" placeholder="@Model.Note" /><br /><br />
+
+    <button type="submit" class="btn btn-info">Update</button>
+
+    <div asp-validation-summary="All"></div>
+</form>
+
